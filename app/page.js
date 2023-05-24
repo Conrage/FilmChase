@@ -15,23 +15,7 @@ export default function Cadastro() {
 const cadastrar = async () => {
     const email = document.getElementById("email").value;
     const name = document.getElementById("name").value;
-    let password = document.getElementById("password").value; // Texto temp para ser enviado pro webserver
-
-    if (password.length >= 8){
-        const response = await fetch('http://wh0am1.pythonanywhere.com/gerar-hash', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ password })
-        });
-        if (response.ok) {
-          const hash = await response.text(); // Recebe o hash retornado pelo webserver
-          password = hash;
-        } else {
-          console.error('Erro ao enviar texto:', response.status);
-        }
-      };
+    const password = document.getElementById("password").value; // Texto temp para ser enviado pro webserver
       createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
