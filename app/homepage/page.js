@@ -111,7 +111,7 @@ export default function Homepage() {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
         const likedFilms = doc.data().likedFilms || [];
-        if (likedFilms.includes(filmId)) {
+        if (likedFilms?.includes(filmId)) {
           await updateDoc(doc.ref, {
             likedFilms: arrayRemove(filmId),
           });
@@ -132,7 +132,7 @@ export default function Homepage() {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
         const listFilms = doc.data().listFilms || [];
-        if (listFilms.includes(filmId)) {
+        if (listFilms?.includes(filmId)) {
           await updateDoc(doc.ref, {
             listFilms: arrayRemove(filmId),
           });
@@ -148,7 +148,6 @@ export default function Homepage() {
   };
   useEffect(() => {
     setLoading(true);
-    console.log(filters);
     if (search === "") {
       getFilms();
     } else {
@@ -209,7 +208,7 @@ export default function Homepage() {
             </div>
           ) : (
             <div className="flex w-full h-full mt-4 overflow-y-auto flex-col">
-              {films.length == 0 ? (
+              {films?.length == 0 ? (
                 <div className="flex flex-col w-full h-full items-center justify-center gap-2">
                   <p className="text-[#A1A1A1] text-2xl text-center w-full mt-10">
                     Nenhum filme encontrado
@@ -217,9 +216,10 @@ export default function Homepage() {
                 </div>
               ) : (
                 <div className="flex gap-3 flex-wrap">
-                  {films.map((film) => {
+                  {films?.map((film) => {
                     return (
                       <FilmCard
+                        key={film.id}
                         title={film.title}
                         image={film.poster_path}
                         rate={film.vote_average}

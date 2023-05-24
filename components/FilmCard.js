@@ -22,10 +22,10 @@ export default function FilmCard(props) {
       let isLiked = false;
       let isListed = false;
       querySnapshot.forEach((doc) => {
-        if (doc.data().likedFilms.includes(props.id)) {
+        if (doc.data().likedFilms?.includes(props.id)) {
           isLiked = true;
         }
-        if (doc.data().listFilms.includes(props.id)) {
+        if (doc.data().listFilms?.includes(props.id)) {
           isListed = true;
         }
       });
@@ -38,20 +38,7 @@ export default function FilmCard(props) {
   };
 
   useEffect(() => {
-    setLoading(true);
-    const unsubscribe = onSnapshot(
-      query(
-        collection(db, "users"),
-        where("uid", "==", localStorage.getItem("uid"))
-      ),
-      () => {
-        getFilms();
-      }
-    );
-
-    return () => {
-      unsubscribe();
-    };
+    getFilms();
   }, []);
 
   const handleVisibilityClick = () => {

@@ -46,9 +46,8 @@ export default function Favorites() {
       const updatedFilms = await Promise.all(filmPromises);
 
       const filteredFilms = updatedFilms.filter((film) =>
-        film.title.toLowerCase().includes(search.toLowerCase())
+        film.title.toLowerCase()?.includes(search.toLowerCase())
       );
-
       setCorrectFilms(filteredFilms);
       setLoading(false);
     } catch (error) {
@@ -65,7 +64,7 @@ export default function Favorites() {
         const likedFilms = doc.data().likedFilms || [];
         const userRef = doc.ref;
 
-        if (likedFilms.includes(filmId)) {
+        if (likedFilms?.includes(filmId)) {
           await updateDoc(userRef, {
             likedFilms: arrayRemove(filmId),
           });
@@ -87,7 +86,7 @@ export default function Favorites() {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
         const listFilms = doc.data().listFilms || [];
-        if (listFilms.includes(filmId)) {
+        if (listFilms?.includes(filmId)) {
           await updateDoc(doc.ref, {
             listFilms: arrayRemove(filmId),
           });
@@ -102,7 +101,7 @@ export default function Favorites() {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     const uid = localStorage.getItem("uid");
     const q = query(collection(db, "users"), where("uid", "==", uid));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -112,14 +111,12 @@ export default function Favorites() {
       });
       setFilms(likedFilms);
     });
-    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
     getFilm();
-  }, [search]);
-
-  getFilm();
+  }, [search, films]);
+  
 
   return (
     <main className="font-mont w-screen h-screen bg-[#161616] flex">
@@ -161,6 +158,7 @@ export default function Favorites() {
                 {correctFilms.map((film) => {
                   return (
                     <FilmCard
+                      key={film.id}
                       title={film.title}
                       image={film.poster_path}
                       rate={film.vote_average}
