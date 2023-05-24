@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Input from "../../components/input";
+import Input from "../../components/Input.js";
 import PriButton from "../../components/PrimaryButton.js";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../auth/firebase";
