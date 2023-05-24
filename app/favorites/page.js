@@ -123,7 +123,7 @@ export default function Favorites() {
       <LateralMenu favorites={true}></LateralMenu>
       <div className="flex flex-col h-screen w-full p-6">
         <TopMenu favorites={true}></TopMenu>
-        {films.length == 0 ? (
+        {films?.length == 0 ? (
           false
         ) : (
           <div className="flex w-full h-fit">
@@ -147,7 +147,7 @@ export default function Favorites() {
           </div>
         ) : (
           <div className="flex w-full h-full mt-4 overflow-y-auto flex-col">
-            {films.length == 0 ? (
+            {films?.length == 0 ? (
               <div className="flex flex-col w-full h-full items-center justify-center gap-2">
                 <p className="text-[#A1A1A1] text-2xl text-center w-full mt-10">
                   Nenhum filme encontrado
@@ -155,7 +155,7 @@ export default function Favorites() {
               </div>
             ) : (
               <div className="flex gap-3 flex-wrap">
-                {correctFilms.map((film) => {
+                {correctFilms?.map((film) => {
                   return (
                     <FilmCard
                       key={film.id}

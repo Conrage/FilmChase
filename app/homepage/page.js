@@ -253,7 +253,7 @@ export default function Homepage() {
                 onClick={() => setPage(page + 1)}
                 className="w-full flex items-center justify-center"
               >
-                {films.length == 0 || films.length < 18 ? (
+                {films?.length == 0 || films?.length < 18 ? (
                   false
                 ) : (
                   <PrimaryButton>Ver mais</PrimaryButton>
